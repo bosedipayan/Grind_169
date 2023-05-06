@@ -1,0 +1,33 @@
+class Solution {
+public:
+    int n,m;
+    void fillColor(int row,int col,vector<vector<int>>& image,int initColor,vector<vector<int>> &ans,int newColor)
+    {
+        ans[row][col]=newColor;
+        
+        int dr[]={-1,0,+1,0};
+        int dc[]={0,+1,0,-1};
+        for(int i=0;i<4;i++)
+        {
+            int n_row=row+dr[i];
+            int n_col=col+dc[i];
+            
+            if(n_row>=0 && n_row<n && n_col>=0 && n_col<m && ans[n_row][n_col]==initColor && ans[n_row][n_col]!=newColor)
+            {
+                fillColor(n_row,n_col,image,initColor,ans,newColor);
+            }
+        }
+    }
+    vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int newColor) 
+    {
+        vector<vector<int>> ans=image;
+        
+        n=image.size();
+        m=image[0].size();
+        
+        int initColor=image[sr][sc];
+        fillColor(sr,sc,image,initColor,ans,newColor);
+        
+        return ans;
+    }
+};
