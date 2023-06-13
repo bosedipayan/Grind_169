@@ -12,13 +12,12 @@ public:
             mp[it]++;
         }
         
-        int ans=0;
-        bool check=0;
+        int ans=0,check=0;
         for(auto it:mp)
         {
             ans+=it.second - (it.second%2);
             
-            if(it.second%2)
+            if(it.second%2 != 0)
             {
                 check=1;
             }
@@ -26,7 +25,7 @@ public:
         
         if(check)
         {
-            ans+=1;
+            ans+=check;
         }
         return ans;
     }
