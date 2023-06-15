@@ -1,0 +1,20 @@
+class Solution {
+public:
+    string addBinary(string a, string b) {
+        int n=a.size()-1;
+        int m=b.size()-1;
+        
+        int c=0;
+        string ans="";
+        while(n>=0 || m>=0 || c)
+        {
+            if(n >= 0) c+=(a[n--]-'0');
+            if(m >= 0) c+=(b[m--]-'0');
+            
+            ans+=to_string(c%2);
+            c/=2;
+        }
+        reverse(ans.begin(),ans.end());
+        return ans;
+    }
+};
