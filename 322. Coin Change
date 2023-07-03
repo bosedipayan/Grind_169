@@ -1,0 +1,68 @@
+class Solution {
+public:
+    int checkCoin(int i,vector<int>& coins,vector<vector<int>> &dp,int amount)
+    {
+        if(i==0)
+        {
+            if(amount%coins[i] == 0)
+            {
+                return amount/coins[i];
+            }
+            return 1e9;
+        }
+        
+        if(dp[i][amount] != -1) return dp[i][amount];
+        
+        int take=INT_MAX;
+        if(coins[i] <= amount)
+        {
+            take=1+checkCoin(i,coins,dp,amount-coins[i]);
+        }
+        
+        int notTake = checkCoin(i-1,coins,dp,amount);
+        
+        return dp[i][amount]=min(take, notTake);
+    }
+    int coinChange(vector<int>& coins, int amount) {
+        int n=coins.size();
+        
+        vector<vector<int>> dp(n+1,vector<int>(amount+1, -1));
+        
+        int ans=checkCoin(n-1,coins,dp,amount); 
+        
+        return ans>=1e9?-1:ans;    
+            
+        /*int n=coins.size();
+        vector<int> prev(amount+1,0),curr(amount+1,0);
+        
+        for(int i=0;i<=amount;i++)
+        {
+            if(i % coins[0]==0) return prev[i] = i/coins[0];
+            return prev[i] = 1e9;
+        }
+        
+        for(int j=1;j<n;j++)
+        {
+            for(int T=0;T<=amount;T++)
+            {
+                int notTake = 0 + prev[T];
+                int take = INT_MAX;
+                
+                if(coins[j] <= T)
+                {
+                    take = 1 + curr[T-coins[j]];
+                }
+                
+                curr[T] = min(take,notTake);
+            }
+        }
+        
+        int ans = curr[amount];
+        
+        if(ans >= 1e9)
+        {
+            return -1;
+        }
+        return ans;*/
+    }
+};
