@@ -1,0 +1,42 @@
+class Solution {
+public:
+    int n,m;
+    void findIslands(int row,int col,vector<vector<char>> &mat)
+    {
+        mat[row][col]='0';
+        
+        int dr[]={-1,0,+1,0};
+        int dc[]={0,+1,0,-1};
+        for(int i=0;i<4;i++)
+        {
+            int n_row=row+dr[i];
+            int n_col=col+dc[i];
+            
+            if(n_row>=0 && n_row<n && n_col>=0 && n_col<m && mat[n_row][n_col] == '1')
+            {
+                findIslands(n_row, n_col, mat);
+            }
+        }
+    }
+    int numIslands(vector<vector<char>>& grid) {
+        int ans=0;
+        
+        vector<vector<char>> mat=grid;
+        
+        n=grid.size();
+        m=grid[0].size();
+        
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<m;j++)
+            {
+                if(mat[i][j] == '1')
+                {
+                    findIslands(i,j,mat);
+                    ans++;
+                }
+            }
+        }
+        return ans;
+    }
+};
