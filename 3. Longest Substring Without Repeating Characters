@@ -1,0 +1,40 @@
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        if(s.size() == 0) return 0;
+        
+        vector<int> v(256,-1);
+        
+        int ans=INT_MIN;
+        int i=0,j=0;
+        while(j < s.size())
+        {
+            if(v[s[j]] != -1)
+            {
+                i=max(i,v[s[j]]+1);
+            }
+            v[s[j]]=j;
+            ans=max(ans, j-i+1);
+            j++;
+        }
+        return ans;
+        
+        /*unordered_map<char,int> mp;
+        
+        int ans=INT_MIN;
+        int i=0,j=0;
+        while(j<s.size())
+        {
+            if(mp.find(s[j])!=mp.end())
+            {
+                i=max(i,mp[s[j]]+1);
+                mp.erase(s[j]);
+            }
+            mp.insert({s[j],j});
+            
+            ans=max(ans,j-i+1);
+            j++;
+        }
+        return ans;*/
+    }
+};
