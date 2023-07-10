@@ -1,0 +1,49 @@
+class Solution {
+public:
+    int findDuplicate(vector<int>& nums) {
+        int s=0,e=nums.size()-1;
+        
+        while(s <= e)
+        {
+            int mid=s+(e-s)/2;
+            
+            int c=0;
+            for(auto it:nums)
+            {
+                if(it <= mid)
+                {
+                    c+=1;
+                }
+            }
+            
+            if(c <= mid)
+            {
+                s=mid+1;
+            }
+            else
+            {
+                e=mid-1;
+            }
+        }
+        return s;
+        
+        
+        /*
+        map<int,int> mp;
+        
+        for(auto it:nums)
+        {
+            mp[it]++;
+        }
+        
+        int ans;
+        for(auto it1:mp)
+        {
+            if(it1.second > 1)
+            {
+                ans=it1.first;
+            }
+        }
+        return ans;*/
+    }
+};
